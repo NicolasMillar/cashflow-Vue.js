@@ -11,7 +11,9 @@
         :amount="amount"
       >
         <template #graphic> graphic </template>
-        <template #action> action </template>
+        <template #action>
+          <Action />
+        </template>
       </Resume>
     </template>
     <template #movements>
@@ -25,6 +27,7 @@ import Layout from "./MyLayout.vue";
 import Header from "./MyHeader.vue";
 import Resume from "./Resume/ResumeIndex.vue";
 import Movements from "./Movements/MyMovements.vue";
+import Action from "./MyAction.vue";
 
 export default {
   components: {
@@ -32,6 +35,7 @@ export default {
     Header,
     Resume,
     Movements,
+    Action,
   },
   data() {
     return {
