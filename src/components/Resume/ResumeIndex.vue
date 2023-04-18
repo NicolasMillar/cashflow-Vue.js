@@ -39,7 +39,7 @@ export default {
       return this.amount !== null ? this.amount : this.totalAmount;
     },
     labelVisual() {
-      return this.label !== null ? this.label : this.date;
+      return this.date !== null ? this.date : this.label;
     },
     amountCurrency() {
       return currencyFormater.format(this.amountVisual);

@@ -74,7 +74,7 @@ const emit = defineEmits(["select"]);
 watch(pointer, (value) => {
   const index = Math.ceil(value / (300 / amounts.value.length));
   if (index < 0 || index > amounts.value.length) return;
-  emit("select", amounts.value[index - 1]);
+  emit("select", amounts.value[index - 1], index - 1);
 });
 
 const tap = ({ target, touches }) => {
