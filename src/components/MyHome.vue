@@ -45,40 +45,64 @@ export default {
     return {
       label: null,
       amount: null,
-      amounts: [100, 200, 500, 200, -400, -600, -300, 0, 500],
       movements: [
         {
           id: 1,
           title: "Movimiento",
           description: "Deposito de salario",
-          amount: "1000",
+          amount: 1000,
+          time: new Date("04-05-2023"),
         },
         {
           id: 2,
           title: "Movimiento 1",
           description: "Deposito de honorarios",
-          amount: "500",
+          amount: 500,
+          time: new Date("04-015-2023"),
         },
         {
           id: 3,
           title: "Movimiento 3",
           description: "Comida",
-          amount: "-100",
+          amount: -100,
+          time: new Date("03-25-2023"),
         },
         {
           id: 4,
           title: "Movimiento 4",
           description: "Colegiatura",
-          amount: "1000",
+          amount: 1000,
+          time: new Date("02-01-2023"),
         },
         {
           id: 5,
           title: "Movimiento 5",
           description: "Reparación equipo",
-          amount: "1000",
+          amount: 1000,
+          time: new Date("02-01-2023"),
         },
       ],
     };
+  },
+  computed: {
+    amounts() {
+      const lastDays = this.movements
+        .filter((m) => {
+          const today = new Date();
+          const olDate = today.setDate(today.getDate() - 30);
+
+          return m.time >= olDate;
+        })
+        .map((m) => m.amount);
+      console.log(lastDays);
+      return lastDays.map((m, i) => {
+        const lastMovements = lastDays.slice(0, i + 1);
+
+        return lastMovements.reduce((suma, movements) => {
+          return suma + movements;
+        }, 0);
+      });
+    },
   },
 };
 </script>
