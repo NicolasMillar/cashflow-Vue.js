@@ -13,7 +13,7 @@
         </div>
         <div class="field">
           <label>Descripción</label>
-          <textarea rows="4" v-modal="description"></textarea>
+          <textarea rows="4" v-model="description"></textarea>
         </div>
         <div class="field">
           <label class="radio-label">
