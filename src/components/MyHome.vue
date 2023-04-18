@@ -14,7 +14,7 @@
           <Graphic :amounts="amounts" />
         </template>
         <template #action>
-          <Action />
+          <Action @create="create" />
         </template>
       </Resume>
     </template>
@@ -102,6 +102,11 @@ export default {
           return suma + movements;
         }, 0);
       });
+    },
+  },
+  methods: {
+    create(movements) {
+      this.movements.push(movements);
     },
   },
 };
