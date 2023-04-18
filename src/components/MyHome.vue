@@ -19,7 +19,7 @@
       </Resume>
     </template>
     <template #movements>
-      <Movements :movements="movements" />
+      <Movements :movements="movements" @remove="remove" />
     </template>
   </Layout>
 </template>
@@ -94,7 +94,6 @@ export default {
           return m.time >= olDate;
         })
         .map((m) => m.amount);
-      console.log(lastDays);
       return lastDays.map((m, i) => {
         const lastMovements = lastDays.slice(0, i + 1);
 
@@ -107,6 +106,10 @@ export default {
   methods: {
     create(movements) {
       this.movements.push(movements);
+    },
+    remove(id) {
+      const index = this.movements.findIndex((m) => m.id === id);
+      this.movements.splice(index, 1);
     },
   },
 };
