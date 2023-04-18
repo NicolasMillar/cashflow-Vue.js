@@ -45,43 +45,7 @@ export default {
     return {
       label: null,
       amount: null,
-      movements: [
-        {
-          id: 1,
-          title: "Movimiento",
-          description: "Deposito de salario",
-          amount: 1000,
-          time: new Date("04-05-2023"),
-        },
-        {
-          id: 2,
-          title: "Movimiento 1",
-          description: "Deposito de honorarios",
-          amount: 500,
-          time: new Date("04-015-2023"),
-        },
-        {
-          id: 3,
-          title: "Movimiento 3",
-          description: "Comida",
-          amount: -100,
-          time: new Date("03-25-2023"),
-        },
-        {
-          id: 4,
-          title: "Movimiento 4",
-          description: "Colegiatura",
-          amount: 1000,
-          time: new Date("02-01-2023"),
-        },
-        {
-          id: 5,
-          title: "Movimiento 5",
-          description: "Reparación equipo",
-          amount: 1000,
-          time: new Date("02-01-2023"),
-        },
-      ],
+      movements: [],
     };
   },
   computed: {
@@ -103,13 +67,27 @@ export default {
       });
     },
   },
+  mounted() {
+    const movements = JSON.parse(localStorage.getItem("movements"));
+
+    if (Array.isArray(movements)) {
+      this.movements = movements.map((m) => {
+        return { ...m, time: new Date(m.time) };
+      });
+    }
+  },
   methods: {
     create(movements) {
       this.movements.push(movements);
+      this.save();
     },
     remove(id) {
       const index = this.movements.findIndex((m) => m.id === id);
       this.movements.splice(index, 1);
+      this.save();
+    },
+    save() {
+      localStorage.setItem("movements", JSON.stringify(this.movements));
     },
   },
 };
