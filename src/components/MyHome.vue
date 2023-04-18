@@ -5,9 +5,9 @@
     </template>
     <template #resume>
       <Resume
-        :label="label"
-        :date="totalAmount"
-        :total-amount="1000000"
+        :label="'Ahorro total'"
+        :date="label"
+        :total-amount="totalAmount"
         :amount="amount"
       >
         <template #graphic>
@@ -65,6 +65,11 @@ export default {
           return suma + movements;
         }, 0);
       });
+    },
+    totalAmount() {
+      return this.movements.reduce((suma, m) => {
+        return suma + m.amount;
+      }, 0);
     },
   },
   mounted() {
