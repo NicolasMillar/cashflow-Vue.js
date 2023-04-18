@@ -36,13 +36,16 @@
 
 <script setup>
 import { ref, toRefs, defineProps, defineEmits, computed, watch } from "vue";
+
 const props = defineProps({
   amounts: {
     type: Array,
     default: () => [],
   },
 });
+
 const { amounts } = toRefs(props);
+
 const amountToPixels = (amount) => {
   const min = Math.min(...amounts.value);
   const max = Math.max(...amounts.value);
@@ -50,9 +53,11 @@ const amountToPixels = (amount) => {
   const minmax = Math.abs(max) + Math.abs(min);
   return 200 - ((amountAbs * 100) / minmax) * 2;
 };
+
 const zero = computed(() => {
   return amountToPixels(0);
 });
+
 const points = computed(() => {
   const total = amounts.value.length;
   return amounts.value.reduce((points, amount, i) => {
@@ -61,14 +66,17 @@ const points = computed(() => {
     return `${points} ${x},${y}`;
   }, `0, ${amountToPixels(amounts.value.length ? amounts.value[0] : 0)}`);
 });
+
 const showPointer = ref(false);
 const pointer = ref(0);
 const emit = defineEmits(["select"]);
+
 watch(pointer, (value) => {
   const index = Math.ceil(value / (300 / amounts.value.length));
   if (index < 0 || index > amounts.value.length) return;
   emit("select", amounts.value[index - 1]);
 });
+
 const tap = ({ target, touches }) => {
   showPointer.value = true;
   const elementWidth = target.getBoundingClientRect().width;
@@ -76,6 +84,7 @@ const tap = ({ target, touches }) => {
   const touchX = touches[0].clientX;
   pointer.value = ((touchX - elementX) * 300) / elementWidth;
 };
+
 const untap = () => {
   showPointer.value = false;
 };
